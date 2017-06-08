@@ -1,1 +1,3 @@
-# compete_code
+# competitive_coding
+# hackerearth
+# hackerrank

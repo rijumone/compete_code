@@ -13,3 +13,22 @@ class Queue:
 
     def size(self):
         return len(self.items)
+    
+    def printQ(self):
+        return self.items
+
+
+
+q = Queue()
+
+q.enqueue(1)
+q.enqueue(3)
+q.enqueue(5)
+q.enqueue(7)
+
+
+print q.printQ()
+
+q.dequeue()
+
+print q.printQ()
