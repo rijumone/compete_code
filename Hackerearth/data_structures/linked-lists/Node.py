@@ -13,6 +13,13 @@ class Node:
 		return self.data
 
 
+class LinkedList(object):
+	def __init__(self, head=None):
+		self.head = head
+
+	
+	
+
 n = Node("a")
 m = Node("b", n )
 
@@ -24,7 +31,7 @@ m = Node("b", n )
 mainList = [2,5,2,6,8,3,5]
 
 for k in mainList:
-	print k 
+	n = Node(k) 
 
 # traverse
 # highest
