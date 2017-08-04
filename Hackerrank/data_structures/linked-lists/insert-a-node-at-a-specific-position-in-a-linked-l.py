@@ -47,3 +47,12 @@ ll = Node(3,Node(5,Node(4,Node(2))))
 print ll
 print InsertNth(ll,10,1)
 
+def InsertNth(head, data, position):
+	start = head
+	if position == 0:
+		return Node(data,head)
+	while position > 1:
+		head = head.next
+		position -= 1
+	head.next = Node(data, head.next)
+	return start
