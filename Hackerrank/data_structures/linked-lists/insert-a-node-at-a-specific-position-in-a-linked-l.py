@@ -21,7 +21,7 @@ class Node(object):
 
 
 
-
+"""
 def InsertNth(head, data, position):
 	t = Node(data)
 	if head is None:
@@ -37,7 +37,7 @@ def InsertNth(head, data, position):
 		l.next = d
 		t.next = l
 	return head
-  
+"""  
   
 ll = Node(3,Node(5,Node(4,Node(2))))
 print ll
@@ -48,11 +48,11 @@ print ll
 print InsertNth(ll,10,1)
 
 def InsertNth(head, data, position):
-	start = head
-	if position == 0:
-		return Node(data,head)
-	while position > 1:
-		head = head.next
-		position -= 1
-	head.next = Node(data, head.next)
+	start = head # keep copy of starting node (head)
+	if position == 0: # to be inserted at first position
+		return Node(data,head) # create new node with next node as head node
+	while position > 1: # looping from position to 1 (position number of times)
+		head = head.next # iterating the list
+		position -= 1 # decrementing position to reach 1 eventually
+	head.next = Node(data, head.next) # when position reached 
 	return start
