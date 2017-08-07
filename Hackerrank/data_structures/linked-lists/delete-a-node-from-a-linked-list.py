@@ -21,6 +21,6 @@ def Delete(head, position):
 		current = current.next
 		position -= 1
 
-	nex = current.next
-	current.next = nex.next
+	# nex = current.next
+	current.next = current.next.next
 	return head
