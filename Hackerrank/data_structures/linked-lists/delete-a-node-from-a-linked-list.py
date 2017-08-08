@@ -49,23 +49,13 @@ class Node(object):
 		return str(self.data) + " " + str(self.next)
 
 def Delete(head, position):
-	# if head is None:
-	# 	return head
-	
-	if position == 0:
+	if position == 0: # special case, no prev to link to next, instead return next
 		return head.next
 
 	current = head
-	prev = Node(None,head)
 	while position > 1:
-		# print position
-		prev = current
-		# print prev
 		current = current.next
 		position -= 1
-	# print prev
-	# print current
-	# prev.next = current.next
 	current.next = current.next.next
 	return head
 
