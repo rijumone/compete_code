@@ -12,6 +12,9 @@ def ReversePrint(head):
 	nl = Node(head)
 	while not nl.next is None:
 		nl.next = head.next
+		t = Node(data)
+		t.next = head
+		# return t
 	print nl
 
 
