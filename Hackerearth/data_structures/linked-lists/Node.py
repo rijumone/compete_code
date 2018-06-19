@@ -23,9 +23,9 @@ class LinkedList(object):
 n = Node("a")
 m = Node("b", n )
 
-# print n.get_data()
-# print m.get_next().get_data()
-# print m.get_data()
+print n.get_data()
+print m.get_next().get_data()
+print m.get_data()
 
 
 mainList = [2,5,2,6,8,3,5]
