@@ -3,6 +3,7 @@
 def addpoly(p1,p2):
 	o_dict = {}
 	o_lst = []
+	
 	for term in p1:
 		if term[1] not in o_dict:
 			o_dict[term[1]] = 0
@@ -25,11 +26,25 @@ def addpoly(p1,p2):
 
 	
 def multpoly(p1,p2):
-	pass
+	sum_lst = []
+	
+	for term in p1:
+		tmp_lst = []
+		for term1 in p2:
+			coeff = term[0] * term1[0]
+			expon = term[1] + term1[1]
+			tmp_lst.append((coeff, expon))
+		sum_lst = addpoly(sum_lst, tmp_lst)
+
+	return sum_lst
+
 
 if __name__ == '__main__':
 	print(addpoly(
 		[(4, 9), (3, 5)],
 		[(4, 11), (2, 5)],
 		))
-
+	print(multpoly(
+		[(4, 9), (3, 5)],
+		[(4, 11), (2, 5)],
+		))
