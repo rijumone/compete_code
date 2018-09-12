@@ -2,7 +2,6 @@
 
 def addpoly(p1,p2):
 	o_dict = {}
-	p_dict = {}
 	o_lst = []
 	for term in p1:
 		if term[1] not in o_dict:
@@ -20,8 +19,7 @@ def addpoly(p1,p2):
 			max_key = _
 	for _ in range(max_key + 1, 0 , -1):
 		if _ in o_dict:
-			p_dict[_] = o_dict[_]
-			o_lst.append((p_dict[_], _))
+			o_lst.append((o_dict[_], _))
 
 	return o_lst
 
