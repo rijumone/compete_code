@@ -61,7 +61,7 @@ def main(weights):
         # stones will have to be removed from collection in any case
         weights.remove(x)
         weights.remove(y)
-        # one stone weight will be added back only if the weights are unequal
+        # difference in weights will be added back only if the weights are unequal
         if x != y:
             weights.append(y-x)
 
