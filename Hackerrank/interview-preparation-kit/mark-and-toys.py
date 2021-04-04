@@ -1,6 +1,9 @@
+import time
+
+
 def main(prices):
 
-    k = 140
+    k = 999999
 
     # need to sort the list and then
     # count first n elements which
@@ -8,8 +11,9 @@ def main(prices):
 
     print(prices)
     # prices = bubble_sort(prices)
-    prices = selection_sort(prices)
-    print(prices)
+    # prices = selection_sort(prices)
+    prices = merge_sort(prices)
+    print(f'prices: {prices}')
 
     sum_till_now = 0
     _ctr = 0
@@ -55,18 +59,79 @@ def selection_sort(lst):
 
 
 def merge_sort(lst):
-    def merge(lst_a, lst_b):
-        # both lists in args are individually sorted
-        # just merge them and return one list
-        pass
-    len_lst = len(lst)
+    if len(lst) <= 1:
+        return lst
+
+    middle = len(lst) // 2
+    left_half = lst[:middle]
+    right_half = lst[middle:]
+
+    # recursive call on each half
+    left_half = merge_sort(left_half)
+    right_half = merge_sort(right_half)
+
+    # iterators for traversal
+    i_l = 0
+    i_r = 0
+
+    i = 0
+
+    # while there are still items remaining
+    # in both lists for traversal
+    while i_l < len(left_half) and i_r < len(right_half):
+        if left_half[i_l] < right_half[i_r]:
+            # the left halves value is smaller
+            # it needs to go in the original list
+
+            lst[i] = left_half[i_l]
+            # move the iterator forward
+            i_l += 1
+        else:
+            # the right halves value is smaller
+            # or is equal, in either case:
+            # it needs to go in the original list
+
+            lst[i] = right_half[i_r]
+            # move the iterator forward
+            i_r += 1
+
+        # irrespective of either of the above cases
+        # move the iterator forward
+        # for the original list
+        i += 1
+
+    # now for items remaining
+    # in the left_half
+    while i_l < len(left_half):
+        # p.s: this condition is the same as
+        # the first part of the above condition
+        lst[i] = left_half[i_l]
+        i += 1
+        i_l += 1
+
+    # in the right_half
+    while i_r < len(right_half):
+        # p.s: this condition is the same as
+        # the second part of the above condition
+        # print(lst, i)
+        # print(right_half, i_r)
+        lst[i] = right_half[i_r]
+        i += 1
+        i_r += 1
+
+    # either of the conditions above would
+    # evaluate to true
+    # not both
+
     return lst
 
 
 if __name__ == '__main__':
-    main(prices=[int(_) for _ in '1 12 5 111 200 1000 10'.split(' ')])
-    # prices = []
-    # from random import randrange
-    # for _ in range(99999):
-    #     prices.append(randrange(9999))
-    # main(prices=prices)
+    # main(prices=[int(_) for _ in '1 12 5 111 200 1000 10'.split(' ')])
+    start_ts = time.time()
+    prices = []
+    from random import randrange
+    for _ in range(9):
+        prices.append(randrange(99))
+    main(prices=prices)
+    print(time.time() - start_ts)
