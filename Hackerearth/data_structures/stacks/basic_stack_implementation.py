@@ -1,18 +1,62 @@
+'''
+LIFO
+'''
+
+class Node:
+    data, next = None, None
+    def __init__(self, value) -> None:
+        self.data = value
+    def __repr__(self):
+        return f'{self.data} -> {self.next}'
+
 class Stack:
-     def __init__(self):
-         self.items = []
+    top = None
 
-     def isEmpty(self):
-         return self.items == []
+    def is_empty(self) -> bool:
+        if self.top:
+            return False
+        return True
 
-     def push(self, item):
-         self.items.append(item)
+    def peek(self):
+        '''
+        returns top Node
+        '''
+        return self.top.data
 
-     def pop(self):
-         return self.items.pop()
+    def push(self, value):
+        '''
+        new Node created and made top
+        '''
+        n = Node(value)
+        n.next = self.top
+        self.top = n
 
-     def peek(self):
-         return self.items[len(self.items)-1]
+    def pop(self):
+        '''
+        remove top Node
+        '''
+        self.top = self.top.next
 
-     def size(self):
-         return len(self.items)
+    def __repr__(self):
+        return str(self.top)
+
+if __name__ == '__main__':
+    s = Stack()
+    print(s.is_empty())
+    s.push(5)
+
+    print(s.peek())
+
+    s.push(6)
+    s.push(7)
+    print(s.peek())
+    
+    print(s)
+
+    s.pop()
+    print(s)
+
+    s.pop()
+    print(s)
+
+    print(s.is_empty())
