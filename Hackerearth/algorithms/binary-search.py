@@ -32,17 +32,17 @@ if __name__ == '__main__':
     # else return -1
     lst = [-2, -1, 5, 7, 13, 17, 18]
 
-    main(lst=lst, x=7)
+    main(lst, x=7)
     # expected: 3
 
-    main(lst=lst, x=17)
+    main(lst, x=17)
     # expected: 5
 
-    main(lst=lst, x=-1)
+    main(lst, x=-1)
     # expected: 1
 
-    main(lst=lst, x=99)
+    main(lst, x=99)
     # expected: -1
 
-    main(lst=lst, x=-99)
+    main(lst, x=-99)
     # expected: -1
