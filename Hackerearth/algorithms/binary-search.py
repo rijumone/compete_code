@@ -1,14 +1,29 @@
-def binary_search(low, high, key):
-    while low < high:
-        pass
+def binary_search(low, high, x, lst):
+    # import pdb
+    # pdb.set_trace()
+    if high < low:
+        # print(high, low)
+        return -1
+    mid = (low + high) // 2
+    if x == lst[mid]:
+        return mid
+    elif x > lst[mid]:
+        low = mid + 1
+        return binary_search(low, high, x, lst)
+    else:  # x < lst[mid]
+        high = mid - 1
+        return binary_search(low, high, x, lst)
 
 
 def main(lst, x):
-    print(lst)
-    n = len(lst)
+    print(lst, x)
     # define and init low and high pointers
     low = 0
-    high = n - 1
+    high = len(lst) - 1
+
+    idx = binary_search(low, high, x, lst)
+
+    print(idx)
 
 
 if __name__ == '__main__':
@@ -16,4 +31,18 @@ if __name__ == '__main__':
     # return index of x if exists
     # else return -1
     lst = [-2, -1, 5, 7, 13, 17, 18]
-    main(lst=lst, x=17)
+
+    main(lst, x=7)
+    # expected: 3
+
+    main(lst, x=17)
+    # expected: 5
+
+    main(lst, x=-1)
+    # expected: 1
+
+    main(lst, x=99)
+    # expected: -1
+
+    main(lst, x=-99)
+    # expected: -1
