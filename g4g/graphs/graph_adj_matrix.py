@@ -11,26 +11,28 @@ class Vertex(object):
     def __init__(self, key, index, payload=None):
         self.key = key  # name
         self.payload = payload  # data associated with Vertex
-        self.index = index
+        self.index = index  # key v/s index?
 
     def __str__(self):
-        return self.key
+        return self.key  # informal
 
     def __repr__(self):
-        return str(self)
+        return str(self)    # formal
 
 
 class Graph(object):
 
     def __init__(self, max_vertexes=100):
-        self.matrix = [[None] * max_vertexes for _ in range(max_vertexes)]  # 2d array (list of lists)
+        # 2d array (list of lists)
+        self.matrix = [[None] * max_vertexes for _ in range(max_vertexes)]
         self.num_vertexes = 0  # current number of vertexes
         self.vertexes = {}  # vertex dict
         self.i_to_key = []  # list of keys to look up from index
 
     def add_vertex(self, key, payload=None):
         """ add vertex named key if it is not already in graph"""
-        assert self.num_vertexes < len(self.matrix), "max vertexes reached,  can not add more!"
+        assert self.num_vertexes < len(
+            self.matrix), "max vertexes reached,  can not add more!"
         if key not in self.vertexes:
             self.i_to_key.append(key)
             i = self.num_vertexes
