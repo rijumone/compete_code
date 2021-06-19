@@ -45,6 +45,10 @@ def is_safe(x, y, n, board):
 def print_board(n, board):
     '''
     Couple of nested for loops to print the board
+    Args:
+        n (int): board size
+        board (list): 2D integer list denoting\
+            current state of board
     '''
     for x in range(n):
         for y in range(n):
@@ -63,7 +67,6 @@ def main(n):
         ... 8
     ]
     '''
-    # print(board)
 
     # since the knight starts at the first square
     curr_x = 0
@@ -84,7 +87,9 @@ def solve_knights_tour(n, board, curr_x, curr_y, pos):
     '''
     Recursive
     '''
-    # why return True if managed to reach end?
+    # if managed to reach end that means
+    # all squares have been visited
+    # this is the stop condition
     if pos == n**2:
         return True
 
@@ -115,5 +120,5 @@ def solve_knights_tour(n, board, curr_x, curr_y, pos):
 
 
 if __name__ == '__main__':
-    n = 8
+    n = 8  # WARNING: integers greater than 8 DO NOT scale well
     main(n)
