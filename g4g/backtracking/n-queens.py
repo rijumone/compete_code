@@ -40,6 +40,47 @@ def is_safe(x, y, n, board) -> bool:
                 # if there is another queen in the same column
                 return False
 
+    # Slow-n-Dirty check for diagonals
+    i, j = x, y
+    while True:
+        try:
+            if board[i+1][j+1] == 'X':
+                return False
+            i += 1
+            j += 1
+        except IndexError:
+            break
+
+    i, j = x, y
+    while True:
+        try:
+            if board[i-1][j-1] == 'X':
+                return False
+            i += 1
+            j += 1
+        except IndexError:
+            break
+
+    i, j = x, y
+    while True:
+        try:
+            if board[i-1][j+1] == 'X':
+                return False
+            i += 1
+            j += 1
+        except IndexError:
+            break
+
+    i, j = x, y
+    while True:
+        try:
+            if board[i+1][j-1] == 'X':
+                return False
+            i += 1
+            j += 1
+        except IndexError:
+            break
+
     return True
 
 
@@ -55,7 +96,7 @@ def print_board(board):
             print(square, end=' ')
         print()
 
-    print('==================')
+    # print('==================')
 
 
 def main(n):
@@ -65,7 +106,8 @@ def main(n):
 
     # board[1][1] = 'X'
     # print_board(board)
-    # print(is_safe(2, 1, 4, board))
+    # print(is_safe(0, 2, n, board))
+    # return
 
     # since the first queen is placed in the first square
     queen_n = 0  # has to go up to n
@@ -90,18 +132,20 @@ def solve_n_queens(n, board, curr_x, curr_y, pos, queen_n):
     # if managed to reach end that means
     # all squares have been visited.
     # This is the stop condition
-    if pos == n**2:
-        return True
+    # if pos == n**2:
+    #     return True
 
     # if ran out of queens
     # This is another stop condition
     if queen_n >= n:
         return True
-
+    new_x, new_y = curr_y, curr_y
     # Does this have to be an infinite loop?
-    while True:
-        new_x = curr_x+1 if curr_x < (n-1) else 0
-        new_y = curr_y+1 if curr_y < (n-1) else 0
+    while pos < n**2:
+        pos += 1
+        # print(pos, n**2)
+        new_x = new_x+1 if new_x < (n-1) else 0
+        new_y = new_y+1 if new_y < (n-1) else 0
 
         # check for safety first
         if not is_safe(new_x, new_y, n, board):
@@ -115,17 +159,16 @@ def solve_n_queens(n, board, curr_x, curr_y, pos, queen_n):
 
         print_board(board)
 
-        if solve_n_queens(n, board, new_x, new_y, pos+1, queen_n):
+        if solve_n_queens(n, board, new_x, new_y, pos, queen_n):
             return True
-        else:
-            # Backtracking
-            board[new_x][new_y] = 'X'
-            queen_n -= 1
-            break
+
+        # Backtracking
+        board[new_x][new_y] = 'X'
+        queen_n -= 1
 
     return False
 
 
 if __name__ == '__main__':
-    n = 4
+    n = 5
     main(n)
