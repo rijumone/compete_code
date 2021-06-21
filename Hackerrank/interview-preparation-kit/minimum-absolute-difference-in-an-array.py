@@ -2,8 +2,8 @@
 Ref: https://www.hackerrank.com/challenges/minimum-absolute-difference-in-an-array/problem
 '''
 
+
 def main(arr):
-    
     '''
     min_abs_diff = 999999999999999
     pairs = []
@@ -16,7 +16,7 @@ def main(arr):
             pairs.append((item_0, item_1))
 
     # print(pairs)
-    
+
     for pair in pairs:
         diff = pair[0] - pair[1]
         if diff < 0:
@@ -34,8 +34,7 @@ def main(arr):
         next_item = sorted_lst[idx+1]
 
         current_abs_diff = abs(item - next_item)
-        if current_abs_diff < min_abs_diff:
-            min_abs_diff = current_abs_diff
+        min_abs_diff = current_abs_diff if current_abs_diff < min_abs_diff else min_abs_diff
 
     return min_abs_diff
 
