@@ -1,95 +1,106 @@
-""" One Example of how to implement a Adjacency Matrix implementation of a Graph Data Structure
-    that matches the Abstract Data Type as defined in the eBook
-    https://runestone.academy/runestone/static/pythonds/index.html
-    and goes with the video course at http://youtube.com/gjenkinslbcc channel
-    """
+'''
+Ref:
+https://www.geeksforgeeks.org/graph-and-its-representations/
+https://ide.geeksforgeeks.org/9je5j6jJ13
+
+'''
+
+from pprint import pprint
 
 
-class Vertex(object):
-    """vertex with key and optional data payload"""
+class Graph:
+    def __init__(self, n_vertex) -> None:
+        self.adj_matrix = [[-1] * n_vertex for _ in range(n_vertex)]
+        self.n_vertices = n_vertex
+        self.vertices = {}  # key to index mapping
+        self.vertice_lst = [0] * n_vertex  # just a list to store vertex_keys
 
-    def __init__(self, key, index, payload=None):
-        self.key = key  # name
-        self.payload = payload  # data associated with Vertex
-        self.index = index  # key v/s index?
+    def add_vertex(self, vertex_idx, vertex_key):
+        '''
+        Add a new vertex and add it to\
+            self.vertices and self.vertice_lst 
+        Args:
+            vertex_idx (int): should be in range: 0, len(self.vertice_lst) - 1)
+            vertex_key (str): Data to be stored in the vertex
+        '''
+        if vertex_idx < 0 or vertex_idx >= len(self.vertice_lst):
+            raise ValueError(
+                f'Invalid vertex_idx: {vertex_idx}.\n'
+                + f'vertex_idx needs to be between: 0 and {len(self.vertice_lst) - 1}')
 
-    def __str__(self):
-        return self.key  # informal
+        self.vertices[vertex_key] = vertex_idx  # key to index mapping
+        self.vertice_lst[vertex_idx] = vertex_key
 
-    def __repr__(self):
-        return str(self)    # formal
+    def set_edge(self, _from, to, weight=1, is_directed=False):
+        '''
+        Add an edge between two vertices.
+        Args:
+            _from (str): key of vertex to add edge from
+            to (str): key of vertex to add edge to
+            weight (int): weight associated with the edge
+            is_directed (bool): Whether graph is directed,\
+                will add additional edge as per this arg
+        '''
+        # get index of vertex using mapping
+        from_vertex = self.vertices[_from]
+        to_vertex = self.vertices[to]
+        self.adj_matrix[from_vertex][to_vertex] = weight
+        if not is_directed:
+            self.adj_matrix[to_vertex][from_vertex] = weight
+
+    def get_vertex(self, ):
+        return self.vertice_lst
+
+    def get_edges(self, ):
+        '''
+        Will return a list of edges with each edge represented\
+            as a tuple (ordered set) with items:
+            - from vertex index
+            - to vertex index
+            - weight
+        '''
+        edges = []
+        for i in range(self.n_vertices):
+            for j in range(self.n_vertices):
+                if self.adj_matrix[i][j] == -1:
+                    # untouched
+                    continue
+                edges.append(
+                    (self.vertice_lst[i], self.vertice_lst[j], self.adj_matrix[i][j]))
+        return edges
+
+    def get_matrix(self,):
+        '''
+        Pretty print adjacency matrix
+        '''
+        for i in range(self.n_vertices):
+            for j in range(self.n_vertices):
+                print(self.adj_matrix[i][j], end=' ')
+            print()
 
 
-class Graph(object):
-
-    def __init__(self, max_vertexes=100):
-        # 2d array (list of lists)
-        self.matrix = [[None] * max_vertexes for _ in range(max_vertexes)]
-        self.num_vertexes = 0  # current number of vertexes
-        self.vertexes = {}  # vertex dict
-        self.i_to_key = []  # list of keys to look up from index
-
-    def add_vertex(self, key, payload=None):
-        """ add vertex named key if it is not already in graph"""
-        assert self.num_vertexes < len(
-            self.matrix), "max vertexes reached,  can not add more!"
-        if key not in self.vertexes:
-            self.i_to_key.append(key)
-            i = self.num_vertexes
-            self.vertexes[key] = Vertex(key, i, payload)
-            self.num_vertexes = i + 1
-            self.num_vertexes += 1
-
-    def add_edge(self, from_key, to_key, weight=None):
-        """ create vertexes if needed and then set weight into matrix"""
-        self.add_vertex(from_key)
-        self.add_vertex(to_key)
-        self.matrix[self.vertexes[from_key].index][self.vertexes[to_key].index] = weight
-
-    def get_vertex(self, key):
-        return self.vertexes[key]
-
-    def get_vertices(self):
-        """returns the list of all vertices in the graph."""
-        return self.vertexes.values()
-
-    def __contains__(self, key):
-        return key in self.vertexes
-
-    def edges(self, from_key):
-        """ return list of tuples (to_vertex, weight) of all edges from vertex_key key"""
-        to_dim = self.matrix[self.vertexes[from_key].index]
-        return [(g.vertexes[g.i_to_key[i]], w) for i, w in enumerate(to_dim) if w]
-        # result = []
-        # for i,w in enumerate(to_dim):
-        #     if w:  # if weigh not None
-        #         result.append((self.vertexes[self.i_to_key[i]], w))
-        # return result
+def main():
+    g = Graph(6)
+    g.add_vertex(0, 'a')
+    g.add_vertex(1, 'b')
+    g.add_vertex(2, 'c')
+    g.add_vertex(3, 'd')
+    g.add_vertex(4, 'e')
+    g.add_vertex(5, 'f')
+    # g.add_vertex(6, 'g')
+    g.set_edge('a', 'e', 10)
+    g.set_edge('a', 'c', 20)
+    g.set_edge('c', 'b', 30)
+    g.set_edge('b', 'e', 40)
+    g.set_edge('e', 'd', 50)
+    g.set_edge('f', 'e', 60)
+    print("Vertices of Graph")
+    print(g.get_vertex())
+    print("Edges of Graph")
+    pprint(g.get_edges())
+    print("Adjacency Matrix of Graph")
+    print(g.get_matrix())
 
 
 if __name__ == '__main__':
-    # test case figure 2 @
-    # https://runestone.academy/runestone/static/pythonds/Graphs/VocabularyandDefinitions.html#fig-dgsimple
-
-    g = Graph()
-    g.add_edge('v0', 'v1', 5)
-    g.add_edge('v1', 'v2', 4)
-    g.add_edge('v2', 'v3', 9)
-    g.add_edge('v3', 'v4', 7)
-    g.add_edge('v4', 'v0', 1)
-    g.add_edge('v0', 'v5', 2)
-    g.add_edge('v5', 'v4', 8)
-    g.add_edge('v3', 'v5', 3)
-    g.add_edge('v5', 'v2', 1)
-    g.add_vertex('v6')  # extra vertex with no connections
-
-    print("The Matrix from this graph:")
-    print(" ", " ".join([v.key for v in g.get_vertices()]))
-    for i in range(g.num_vertexes):
-        row = map(lambda x: str(x) if x else '.', g.matrix[i][:g.num_vertexes])
-        print(g.i_to_key[i], "  ".join(row))
-
-    print('\ng.edges("v5")', g.edges("v5"))
-    print('"v5" in g', "v5" in g)
-    print('"v6" in g', "v6" in g)
-    print('"v7" in g', "v7" in g)
+    main()
