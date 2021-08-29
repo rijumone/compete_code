@@ -26,12 +26,12 @@ def brute_force(n):
 def efficient(n):
     start = 1
     end = n
-    mid = int((end-start)/2) + start
     first_bad_version = None
     if n <= 2:
         for i in range(1, n+1):
             if is_bad_version(i):
-                return i
+                first_bad_version = i
+                return first_bad_version
 
     while end - start != 1:
         mid = int((end-start)/2) + start
@@ -46,9 +46,14 @@ def efficient(n):
         else:
             start = mid
 
-    if not first_bad_version and is_bad_version(n):
-        first_bad_version = n
     logger.debug(first_bad_version)
+    if not first_bad_version:
+        for i in range(start, end+1):
+            print(i)
+            if is_bad_version(i):
+                first_bad_version = i
+                return first_bad_version
+
     return first_bad_version
 
 
@@ -64,7 +69,7 @@ def is_bad_version(q):
 if __name__ == '__main__':
     from time import perf_counter
     start = perf_counter()
-    n = 3
+    n = 99
     fbv = 1
     assert main(n) == fbv
     logger.info(api_counter)
