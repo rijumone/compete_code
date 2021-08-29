@@ -24,37 +24,17 @@ def brute_force(n):
 
 
 def efficient(n):
-    start = 1
+    if n == 1:
+        return 1
+    begin = 1
     end = n
-    first_bad_version = None
-    if n <= 2:
-        for i in range(1, n+1):
-            if is_bad_version(i):
-                first_bad_version = i
-                return first_bad_version
-
-    while end - start != 1:
-        mid = int((end-start)/2) + start
-        logger.debug(start)
-        logger.debug(mid)
-        logger.debug(end)
-
+    while begin < end:
+        mid = begin+(end-begin)/2
         if is_bad_version(mid):
-            first_bad_version = mid
             end = mid
-
         else:
-            start = mid
-
-    logger.debug(first_bad_version)
-    if not first_bad_version:
-        for i in range(start, end+1):
-            print(i)
-            if is_bad_version(i):
-                first_bad_version = i
-                return first_bad_version
-
-    return first_bad_version
+            begin = mid+1
+    return int(begin)
 
 
 def is_bad_version(q):
