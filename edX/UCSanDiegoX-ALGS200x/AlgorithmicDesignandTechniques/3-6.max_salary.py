@@ -1,7 +1,7 @@
 # Uses python3
 
 
-def largest_number(a):
+def largest_number_1(a):
     a = sorted(a)
     res = ""
     while True:
@@ -32,6 +32,33 @@ def get_largest_value(lst):
     return max_idx
 
 
+def largest_number(a):
+    resultant = ''
+    while len(a):
+        for i in range(len(a)):
+            ith = a[i]
+            max_ith = 0
+            for j in range(i, len(a)):
+                jth = a[j]
+                pd_ith, pd_jth = get_padded(ith, jth)
+                if pd_ith > pd_jth:
+                    max_ith = ith
+                print(max_ith)
+        break
+
+
+def get_padded(ith, jth):
+    if len(ith) == len(jth):
+        return int(ith), int(jth)
+    if len(ith) > len(jth):
+        diff = len(ith) - len(jth)
+        jth += '0'*diff
+    else:
+        diff = len(jth) - len(ith)
+        ith += '0'*diff
+    return int(ith), int(jth)
+
+
 if __name__ == '__main__':
     # input = sys.stdin.read()
     # data = input.split()
@@ -40,8 +67,9 @@ if __name__ == '__main__':
     # lst_str = '10 1'
     # lst_str = '10 2'
     # lst_str = '21 2'
-    lst_str = '989 979'
+    # lst_str = '989 979'
     # lst_str = '10 10 11'
+    lst_str = '345 299 29 2919 298 1'
 
     # a = ['21', '2']
     a = lst_str.split(' ')
