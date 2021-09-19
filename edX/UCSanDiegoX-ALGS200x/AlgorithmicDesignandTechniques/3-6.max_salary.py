@@ -32,7 +32,7 @@ def get_largest_value(lst):
     return max_idx
 
 
-def largest_number(a):
+def largest_number_2(a):
     resultant = ''
     while len(a):
         for i in range(len(a)):
@@ -45,6 +45,24 @@ def largest_number(a):
                     max_ith = ith
                 print(max_ith)
         break
+
+
+def get_larger_value(a, b):
+    if int(a+b) > int(b+a):
+        return a
+    return b
+
+
+def largest_number(a):
+    resultant = ''
+    while len(a):
+        current_max = 0
+        for digit in a:
+            current_max = get_larger_value(str(current_max), digit)
+
+        resultant += str(current_max)
+        a.remove(str(current_max))
+    return resultant
 
 
 def get_padded(ith, jth):
@@ -78,4 +96,7 @@ if __name__ == '__main__':
 '''
 9999999998888888888887777777776666666666555555554444444443333333333222222222111011101011101010111101111101011
 9999999998888888888887777777776666666666555555554444444443333333333222222222111111111111111101010101010101010
+
+https://towardsdatascience.com/course-1-algorithmic-toolbox-part-2-big-o-and-greedy-6265d9065f05
+
 '''
