@@ -43,6 +43,18 @@ def poly_multiply(n, a, b):
     b_p = Polynomial(b)
     print(a_p)
     print(b_p)
+    _result_dct = {}
+    for a_pos, a_term in enumerate(a_p.a):
+        a_exp = len(a_p.a) - a_pos - 1
+        for b_pos, b_term in enumerate(b_p.a):
+            b_exp = len(b_p.a) - b_pos - 1
+            if (a_exp + b_exp) not in _result_dct:
+                _result_dct[(a_exp + b_exp)] = 0
+            _result_dct[(a_exp + b_exp)] += (a_term * b_term)
+    _result_lst = []
+    for _k, _v in _result_dct.items():
+        _result_lst.append(_v)
+    return tuple(_result_lst)
 
 
 def main():
